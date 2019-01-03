@@ -1074,7 +1074,7 @@ console.log("startStaff ",startStaff," endStaff ",endStaff);
      var tt=tune.slice(0, tune.length-1);
      tt.push(tune[0]);
      tt=tt.reverse();
-     tt.pop();
+//     tt.pop();
      tune=tt;
     }//endif direction
     staff1=a[2];
