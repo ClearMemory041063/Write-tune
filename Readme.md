@@ -6,7 +6,7 @@
 
 2. Copy from score to a text window
 
-!["CopyingSegment.png"](https://github.com/ClearMemory041063/Write-tune/blob/master/CopyingSegment.png " ")
+![CopyingSegment.png](https://github.com/ClearMemory041063/Write-tune/blob/master/CopyingSegment.png " ")
 
 3. Paste from text window to score
 
@@ -16,18 +16,22 @@
 
 5. Paste from text window the melodic inverson.
 
-!["PastingAndInversion.png"](https://github.com/ClearMemory041063/Write-tune/blob/master/PastingAndInversion.png " ")
+![PastingAndInversion.png](https://github.com/ClearMemory041063/Write-tune/blob/master/PastingAndInversion.png " ")
 
 6. Allow the entry of rests, notes and chords into the score.
 
-!["InsertRestsNotesChords.png"](https://github.com/ClearMemory041063/Write-tune/blob/master/InsertRestsNotesChords.png " ")
+![InsertRestsNotesChords.png](https://github.com/ClearMemory041063/Write-tune/blob/master/InsertRestsNotesChords.png " ")
 
 7. Create scales in the score
 
-!["InsertScales.png"](https://github.com/ClearMemory041063/Write-tune/blob/master/InsertScales.png " ")
+![InsertScales.png](https://github.com/ClearMemory041063/Write-tune/blob/master/InsertScales.png " ")
 
 
-!["DemoScore.pdf"](https://github.com/ClearMemory041063/Write-tune/blob/master/DemoScore.pdf " ")
+![DemoScore.pdf](https://github.com/ClearMemory041063/Write-tune/blob/master/DemoScore.pdf " ")
+
+8. Paste Reverse
+
+![PasteReverse.png](https://github.com/ClearMemory041063/Write-tune/blob/master/PasteReverse.pdf " ")
 
 
 ### Pay attention to the Syncronization field 

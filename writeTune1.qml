@@ -48,11 +48,16 @@ ApplicationWindow{
    }//end Copy
    MenuItem { text: "Paste..." 
     onTriggered: {
-     console.log("paste");
      findSegment(0,0); //(voice,staff)
-     pasteit(page0.text);
+     pasteit(page0.text,0);
     }
    }//end Paste
+   MenuItem { text: "Paste Reverse..." 
+    onTriggered: {
+     findSegment(0,0); //(voice,staff)
+     pasteit(page0.text,1);
+    }
+   }//end Paste Reverse
    MenuItem { text: "Paste Half Time..." 
     onTriggered: {
      findSegment(0,0); //(voice,staff)
@@ -757,7 +762,7 @@ Rectangle {
       sss+=ndDenLabel.text;
       sss+=",-1;";
       console.log("Rest= ",sss);
-      pasteit(sss);
+      pasteit(sss,0);
       nextNote();
      }//end on clicked
     }//end restButton
@@ -774,7 +779,7 @@ Rectangle {
       sss+=",";
       sss+=pitch;
       sss+=";";
-      pasteit(sss);
+      pasteit(sss,0);
       nextNote();
      }//end on clicked
     }//end noteButton
@@ -802,7 +807,7 @@ Rectangle {
        sss+=pitch+ichord[i];
       }//next i   
       sss+=";";
-      pasteit(sss);
+      pasteit(sss,0);
       nextNote();
      }//end on clicked
     }//end chordButton
@@ -842,7 +847,7 @@ Rectangle {
       sss+=";";
      }//next i
      sss+=":,";
-     pasteit(sss);
+     pasteit(sss,0);
      nextNote();
    }//end on clicked
   }//end restButton
@@ -1043,7 +1048,7 @@ console.log("xxxxxxxxxxxxxx ",cursor.tick,endTick);
   return 0;
  }//end apply function
 /////////////////////////////////////////////////
-function pasteit(tune9){
+function pasteit(tune9,direction){
    var tune1=tune9.split(":");//tune1 is array of tracks
    var tune=tune1[0].split(";"); 
    var nt=[];
@@ -1053,8 +1058,6 @@ function pasteit(tune9){
    var staff1=0;
    var voice1=0;
    var skip=1;
-       
- ////  findSegment(0,0); //(voice,staff)
 // Loop thru the staffs and voices present in tune1
   for(k=0;k<tune1.length;k++){
 console.log("pasteit ",k); 
@@ -1067,6 +1070,13 @@ console.log("startStaff ",startStaff," endStaff ",endStaff);
     if(a[0]!= -1){// not the correct info
      return;
     }
+    if(direction){//a reverse paste
+     var tt=tune.slice(0, tune.length-1);
+     tt.push(tune[0]);
+     tt=tt.reverse();
+     tt.pop();
+     tune=tt;
+    }//endif direction
     staff1=a[2];
     if(startStaff == endStaff)staff1=startStaff;
     voice1=a[4];
@@ -1167,7 +1177,7 @@ function pastehalf(tune9,num,den){
   }//next i
   tune+-":/n";
   //console.log(tune);
-  pasteit(tune); 
+  pasteit(tune,0); 
  }//next n 
 }//end pastehalf
 //////////////////////////////////////////////
@@ -1216,7 +1226,7 @@ console.log("ttt ",pivot,tune3[j],2*pivot-tune3[j]+shift);
   }//next i
   tune+=":/n";
   console.log(tune);
-  pasteit(tune); 
+  pasteit(tune,0); 
  }//next n 
 }//end invertTune
 ///////////////////////////////////
