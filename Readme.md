@@ -31,7 +31,7 @@
 
 8. Paste Reverse
 
-![PasteReverse.png](https://github.com/ClearMemory041063/Write-tune/blob/master/PasteReverse.pdf " ")
+![PasteReverse.png](https://github.com/ClearMemory041063/Write-tune/blob/master/PasteReverse.png " ")
 
 
 ### Pay attention to the Syncronization field 
