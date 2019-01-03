@@ -33,6 +33,9 @@
 
 ![PasteReverse.png](https://github.com/ClearMemory041063/Write-tune/blob/master/PasteReverse.png " ")
 
+9. Knit a rest, note or chord into a tune (scale example)
+![KnitRestsNotesandChords.png]](https://github.com/ClearMemory041063/Write-tune/blob/master/KnitRestsNotesandChords.png " ")
+
 
 ### Pay attention to the Syncronization field 
 

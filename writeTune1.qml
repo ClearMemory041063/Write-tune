@@ -43,38 +43,45 @@ ApplicationWindow{
    MenuItem { text: "Copy..." 
     onTriggered: {
     if (typeof curScore === 'undefined')  return;
-    copyFromSelection();
+     findSegment(0,0); //(voice,staff)
+     copyFromSelection();
+     findSegment(0,0); //(voice,staff)
    }
    }//end Copy
    MenuItem { text: "Paste..." 
     onTriggered: {
      findSegment(0,0); //(voice,staff)
      pasteit(page0.text,0);
+     findSegment(0,0); //(voice,staff)
     }
    }//end Paste
    MenuItem { text: "Paste Reverse..." 
     onTriggered: {
      findSegment(0,0); //(voice,staff)
      pasteit(page0.text,1);
+     findSegment(0,0); //(voice,staff)
     }
    }//end Paste Reverse
    MenuItem { text: "Paste Half Time..." 
     onTriggered: {
      findSegment(0,0); //(voice,staff)
      pastehalf(page0.text,1,2);
+     findSegment(0,0); //(voice,staff)
     }
    }//end PasteHalf
    MenuItem { text: "Paste Double Time..." 
     onTriggered: {
      findSegment(0,0); //(voice,staff)
      pastehalf(page0.text,2,1);
-    }
+     findSegment(0,0); //(voice,staff)
+   }
    }//end PasteDouble
    MenuItem { text: "Invert tune..." 
     onTriggered: {
      findSegment(0,0); //(voice,staff)
      showPage1();
-   }
+     findSegment(0,0); //(voice,staff)
+    }
    }//end invert
   }//end Edit Menu
   Menu {
@@ -91,8 +98,16 @@ ApplicationWindow{
      showPage3();
     }
    }//end scales
-
   }//end edit2
+  Menu {
+   title: "Knit"
+   MenuItem { text: "Knit Chords,Notes, Rests..." 
+    onTriggered: {
+     showPage4();
+     findSegment(0,0); 
+    }
+   }//end chords,notes,rests
+  }//end knit
  }//end Menu bar
 
  FileIO {
@@ -853,6 +868,79 @@ Rectangle {
   }//end restButton
  }//end page3control groupbox
 ////
+  GroupBox {
+   id:page4contol
+   visible:true
+   anchors.leftMargin: 10
+   anchors.topMargin: 10
+   Row{
+    Button{
+     id:krestButton
+     anchors.leftMargin: 10
+     anchors.topMargin: 10
+     text: qsTranslate("PrefsDialogBase", "Rest") 
+     onClicked: {
+      var sss="-1,Staff,0,Voice,0;";//1,8,60;
+      sss+=ndNumLabel.text;
+      sss+=",";
+      sss+=ndDenLabel.text;
+      sss+=",-1;";
+      console.log("Rest= ",sss);
+  kpaste(sss);
+ //     pasteit(sss,0);
+ //     nextNote();
+     }//end on clicked
+    }//end restButton
+    Button{
+     id:knoteButton
+     anchors.leftMargin: 10
+     anchors.topMargin: 10
+     text: qsTranslate("PrefsDialogBase", "Note")
+     onClicked: {
+      var sss="-1,Staff,0,Voice,0;";//1,8,60;
+      sss+=ndNumLabel.text;
+      sss+=",";
+      sss+=ndDenLabel.text;
+      sss+=",";
+      sss+=pitch;
+      sss+=";";
+kpaste(sss);
+//      pasteit(sss,0);
+//      nextNote();
+     }//end on clicked
+    }//end noteButton
+    Button{
+     id:kchordButton
+     anchors.leftMargin: 10
+     anchors.topMargin: 10
+     text: qsTranslate("PrefsDialogBase", "Chord")
+     onClicked:{
+      var i;
+      var ichord,chordsx;
+      var chords=[];
+      var sss;
+      chordsx=chordType.model.get(chordType.currentIndex).note;
+      chordsx=chordsx.split(",");
+      for(i=0;i<chordsx.length;i++)
+       chords.push(parseInt(chordsx[i],10));
+      ichord=invertChord(chords,cib3Label.text);
+      sss="-1,Staff,0,Voice,0;";//1,8,60;
+      sss+=ndNumLabel.text;
+      sss+=",";
+      sss+=ndDenLabel.text;
+      for(i=0;i<ichord.length;i++){
+       sss+=",";
+       sss+=pitch+ichord[i];
+      }//next i   
+      sss+=";";
+kpaste(sss);
+     // pasteit(sss,0);
+     // nextNote();
+     }//end on clicked
+    }//end chordButton
+   }//end row
+  }//end page4contol groupbox
+////
  GroupBox {
   id:exitHome
   anchors.leftMargin: 10
@@ -864,6 +952,7 @@ Rectangle {
     anchors.topMargin: 10
     text: qsTranslate("PrefsDialogBase", "Home")
     onClicked: {
+     findSegment(0,0); //(voice,staff)
      showPage0();
     }//end on clicked
    }//end homeButton
@@ -1300,6 +1389,7 @@ function nextNote(){
 page1contol.visible=false;
 page2contol.visible=false;
 page3contol.visible=false;
+page4contol.visible=false;
 chordtypeGroupbox.visible=false;
 scaletypeGroupbox.visible=false;
 chordinvGroupbox.visible=false;
@@ -1316,6 +1406,7 @@ function showPage1(){
 page1contol.visible=true;
 page2contol.visible=false;
 page3contol.visible=false;
+page4contol.visible=false;
 chordtypeGroupbox.visible=false;
 scaletypeGroupbox.visible=false;
 chordinvGroupbox.visible=false;
@@ -1331,6 +1422,7 @@ useOctshiftGB.visible=true;
 page1contol.visible=false;
 page2contol.visible=true;
 page3contol.visible=false;
+page4contol.visible=false;
 chordtypeGroupbox.visible=true;
 scaletypeGroupbox.visible=false;
 chordinvGroupbox.visible=true;
@@ -1346,6 +1438,7 @@ useOctshiftGB.visible=false;
 page1contol.visible=false;
 page2contol.visible=false;
 page3contol.visible=true;
+page4contol.visible=false;
 chordtypeGroupbox.visible=false;
 scaletypeGroupbox.visible=true;
 chordinvGroupbox.visible=false;
@@ -1355,7 +1448,35 @@ tkeys.visible=true;
 scaledir.visible=true;
 useOctshiftGB.visible=false;
   }//end showpage3
+ function showPage4(){
+  page0.visible=false;
+page1contol.visible=false;
+page2contol.visible=false;
+page3contol.visible=false;
+page4contol.visible=true;
+chordtypeGroupbox.visible=true;
+scaletypeGroupbox.visible=false;
+chordinvGroupbox.visible=true;
+pitchGroupbox.visible=true;
+durationGroupbox.visible=true;
+tkeys.visible=true;
+scaledir.visible=false;
+useOctshiftGB.visible=false;
+  }//end showpage4
 ////
+ function kpaste(sss){
+  var tune1=page0.text.split(":");//tune1 is array of tracks
+  var tune=tune1[0].split(";");
+  var tune2="" 
+  var i;
+  for(i=1;i<tune.length-1;i++){
+   tune2="-1,Staff,0,Voice,0;"+tune[i]+";";
+   pasteit(tune2,0);
+   nextNote();
+   pasteit(sss,0);
+   nextNote();
+  }//next i
+ }//end kpaste
 }//end Musescore
 
 
