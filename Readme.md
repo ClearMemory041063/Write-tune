@@ -6,8 +6,7 @@
 
 2. Copy from score to a text window
 
-"C:\Users\jj\Documents\GitHub\Write-tune\CopyingSegment.png"
-
+!["CopyingSegment.png"](https://github.com/ClearMemory041063/Write-tune/blob/master/CopyingSegment.png " ")
 
 3. Paste from text window to score
 
@@ -17,19 +16,18 @@
 
 5. Paste from text window the melodic inverson.
 
-"C:\Users\jj\Documents\GitHub\Write-tune\PastingAndInversion.png"
-
+!["PastingAndInversion.png"](https://github.com/ClearMemory041063/Write-tune/blob/master/PastingAndInversion.png " ")
 
 6. Allow the entry of rests, notes and chords into the score.
 
-"C:\Users\jj\Documents\GitHub\Write-tune\InsertRestsNotesChords.png"
-
+!["InsertRestsNotesChords.png"](https://github.com/ClearMemory041063/Write-tune/blob/master/InsertRestsNotesChords.png " ")
 
 7. Create scales in the score
 
-"C:\Users\jj\Documents\GitHub\Write-tune\InsertScales.png"
+!["InsertScales.png"](https://github.com/ClearMemory041063/Write-tune/blob/master/InsertScales.png " ")
 
-"C:\Users\jj\Documents\GitHub\Write-tune\DemoScore.pdf"
+
+!["DemoScore.pdf"](https://github.com/ClearMemory041063/Write-tune/blob/master/DemoScore.pdf " ")
 
 
 ### Pay attention to the Syncronization field 
@@ -40,17 +38,7 @@ Best practice: Use mouse to mark a selection in th4e score, then click on the Sy
 
 ### Acknowledements
 
-https://github.com/pconrad/MuseScore2-Plugins
+[MuseScore2-Plugins](https://github.com/pconrad/MuseScore2-Plugins)
 
-https://github.com/pconrad/MuseScore2-Plugins/tree/master/original-examples
+[original-examples](https://github.com/pconrad/MuseScore2-Plugins/tree/master/original-examples)
 
-
-1. Blankscore
-
-![alt text](https://github.com/ClearMemory041063/Musical-Scale-PlugIn-for-Musescore/blob/master/BlankScore.png " ")
-
-
-
-"C:\Users\jj\Documents\GitHub\Write-tune\InsertScales.png"
-
-"C:\Users\jj\Documents\GitHub\Write-tune\DemoScore.pdf"
