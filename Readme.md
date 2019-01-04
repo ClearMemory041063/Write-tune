@@ -14,7 +14,7 @@
 
 4. Paste from text window to score and double the durations of elements.
 
-5. Paste from text window the melodic inverson.
+5. Paste from text window the melodic inversion.
 
 ![PastingAndInversion.png](https://github.com/ClearMemory041063/Write-tune/blob/master/PastingAndInversion.png " ")
 
@@ -41,7 +41,7 @@
 ![KnitTunes.png](https://github.com/ClearMemory041063/Write-tune/blob/master/KnitTunes.png " ")
 
 
-### Pay attention to the Syncronization field 
+### Pay attention to the Synchronization field 
 
 This code depends on a selection being made in the score. The synchronization field and the Sync button, allow this plugin to synchronize the insertion point in the score with the selection in Musescore.
 
@@ -51,16 +51,16 @@ Best practice: Use mouse to mark a selection in th4e score, then click on the Sy
 ### Sonic Pi data
 
 The stegtest.rb file contains Sonic Pi code that creates a song using steganography. It has been altered to produce the strings to import the two staffs into MuseScore 2 using this plug in.
-The two strings were copied from Sonic Pi and pasted into the file stegtest.txt. This file was opened with the plugin and pasted into an empty score and the score was then titled etc and saved, and exported into pdf and wav formats.
+The two strings were copied from Sonic Pi and pasted into the file stegtest.txt. This file was opened with the plugin and pasted into an empty score and the score was then titled etc. and saved, and exported into pdf and wav formats.
 
-The playBeehoven.rb is a Sonic Pi program that takes the exported text format and plays the music using Sonic Pi. It uses the file atest.txt. The playbeethoven.rb code will need to be alterd to reflect the file path to the atest.txt file.
+The playBeethoven.rb is a Sonic Pi program that takes the exported text format and plays the music using Sonic Pi. It uses the file atest.txt. The playbeethoven.rb code will need to be altered to reflect the file path to the atest.txt file.
 
 
 
-### Acknowledements
+### Acknowledgements
 
 [MuseScore2-Plugins](https://github.com/pconrad/MuseScore2-Plugins)
 
-[original-examples](https://github.com/pconrad/MuseScore2-Plugins/tree/master/original-examples)
+[Original-examples](https://github.com/pconrad/MuseScore2-Plugins/tree/master/original-examples)
 
 [Sonic Pi](https://sonic-pi.net/)
