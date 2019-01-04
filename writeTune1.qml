@@ -1,4 +1,7 @@
 //AwriteTuneXa.qml
+// 4 Jan 2019
+// Copyright (C) 2019 Joe McCarty
+
 import QtQuick 2.1
 import QtQuick.Controls 1.0
 import MuseScore 1.0
@@ -44,35 +47,35 @@ ApplicationWindow{
     onTriggered: {
     if (typeof curScore === 'undefined')  return;
      findSegment(0,0); //(voice,staff)
-     copyFromSelection();
+     copyFromSelection(ta0);//.text);
      findSegment(0,0); //(voice,staff)
    }
    }//end Copy
    MenuItem { text: "Paste..." 
     onTriggered: {
      findSegment(0,0); //(voice,staff)
-     pasteit(page0.text,0);
+     pasteit(ta0.text,0);
      findSegment(0,0); //(voice,staff)
     }
    }//end Paste
    MenuItem { text: "Paste Reverse..." 
     onTriggered: {
      findSegment(0,0); //(voice,staff)
-     pasteit(page0.text,1);
+     pasteit(ta0.text,1);
      findSegment(0,0); //(voice,staff)
     }
    }//end Paste Reverse
    MenuItem { text: "Paste Half Time..." 
     onTriggered: {
      findSegment(0,0); //(voice,staff)
-     pastehalf(page0.text,1,2);
+     pastehalf(ta0.text,1,2);
      findSegment(0,0); //(voice,staff)
     }
    }//end PasteHalf
    MenuItem { text: "Paste Double Time..." 
     onTriggered: {
      findSegment(0,0); //(voice,staff)
-     pastehalf(page0.text,2,1);
+     pastehalf(ta0.text,2,1);
      findSegment(0,0); //(voice,staff)
    }
    }//end PasteDouble
@@ -107,6 +110,12 @@ ApplicationWindow{
      findSegment(0,0); 
     }
    }//end chords,notes,rests
+   MenuItem { text: "Knit Tunes..." 
+    onTriggered: {
+     showPage5();
+     findSegment(0,0); 
+    }
+   }//tunes
   }//end knit
  }//end Menu bar
 
@@ -124,7 +133,7 @@ ApplicationWindow{
    if(filename){
     myFile.source = filename;
     //read file and put it in the TextArea
-    page0.text = myFile.read();
+    ta0.text = myFile.read();
    }//end if filename
   }//end onAccepted
  }//end FileDialog
@@ -147,7 +156,7 @@ console.log(filename)
     console.log(filename);
    if(filename){
      savFile.source = filename;
-     console.log( savFile.write(page0.text));
+     console.log( savFile.write(ta0.text));
    }//end if filename
   }//end onAccepted
  }//end FileDialog
@@ -166,17 +175,30 @@ Rectangle {
   width:window.width
   spacing:10
   TextArea {
-   id:page0
+   id:ta0
    visible:true
    anchors.topMargin: 10
    anchors.bottomMargin: 10
    anchors.leftMargin: 10
    anchors.rightMargin: 10
    width:parent.width
-   height:200
+   height:150
    wrapMode: TextEdit.WrapAnywhere
    textFormat: TextEdit.PlainText
-  }//end TextArea
+  }//end TextArea ta0
+////
+  TextArea {
+   id:ta1
+   visible:true
+   anchors.topMargin: 10
+   anchors.bottomMargin: 10
+   anchors.leftMargin: 10
+   anchors.rightMargin: 10
+   width:parent.width
+   height:150
+   wrapMode: TextEdit.WrapAnywhere
+   textFormat: TextEdit.PlainText
+  }//end TextArea ta1
 ////
   GroupBox {
    id:chordtypeGroupbox
@@ -754,7 +776,7 @@ Rectangle {
      id: applyButton
      text: qsTranslate("PrefsDialogBase", "Invert")
      onClicked: {
-      invertTune(page0.text,pitch);//pivot);
+      invertTune(ta0.text,pitch);//pivot);
     }//end onclicked
    }//end apply button
   }//end page1control
@@ -941,6 +963,51 @@ kpaste(sss);
    }//end row
   }//end page4contol groupbox
 ////
+  GroupBox {
+   id:page5contol
+   visible:true
+   anchors.leftMargin: 10
+   anchors.topMargin: 10
+   Row{
+    Button{
+     id:kcopy0tButton
+     anchors.leftMargin: 10
+     anchors.topMargin: 10
+     text: qsTranslate("PrefsDialogBase", "Copy 0") 
+     onClicked: {
+      if (typeof curScore === 'undefined')  return;
+      findSegment(0,0); //(voice,staff)
+      copyFromSelection(ta0);//.text);
+      findSegment(0,0); //(voice,staff)
+     }//end on clicked
+    }//end kcopy0tButton
+    Button{
+     id:kcopy1tButton
+     anchors.leftMargin: 10
+     anchors.topMargin: 10
+     text: qsTranslate("PrefsDialogBase", "Copy 1") 
+     onClicked: {
+      if (typeof curScore === 'undefined')  return;
+      findSegment(0,0); //(voice,staff)
+      copyFromSelection(ta1);//.text);
+      findSegment(0,0); //(voice,staff)
+     }//end on clicked
+    }//end kcopy1tButton
+    Button{
+     id:ktuneButton
+     anchors.leftMargin: 10
+     anchors.topMargin: 10
+     text: qsTranslate("PrefsDialogBase", "Knit Tunes") 
+     onClicked: {
+      console.log("Knit tune code goes here");
+knittunes();
+      findSegment(0,0); //(voice,staff)
+     }//end on clicked
+    }//end ktuneButton
+
+   }//end row
+  }//end page5control
+////
  GroupBox {
   id:exitHome
   anchors.leftMargin: 10
@@ -976,7 +1043,7 @@ kpaste(sss);
 ////////////////////
 // Copy all chords/notes/rests from the selection or entire score
 // this section leveraged from colornotes.qml
- function copyFromSelection() {
+ function copyFromSelection(result) {
 var chord,note,i;
     var cursor = curScore.newCursor();
   cursor.rewind(1); // beginning of selection
@@ -985,7 +1052,7 @@ var chord,note,i;
   var endTick;
   var fullScore = false;
   var btext=""
-  page0.text="";  
+  result.text="";  
   if (!cursor.segment) { // no selection
    fullScore = true;
    startStaff = 0; // start with 1st staff
@@ -1036,13 +1103,11 @@ var chord,note,i;
     }//end if (cursor.element
     cursor.next();
    }//end while
-  page0.append(btext+":");
+  result.append(btext+":");
   btext="";
   }//next voice
-//  page0.append(btext);
-//  btext="";
  }//next staff
- page0.text+="/n";
+ result.text+="/n";
 }//end function copyFromSelection
 ///////////////////////////////
 ////////////////////
@@ -1383,89 +1448,9 @@ function nextNote(){
   return sss
  }//end getnotename
 ////
- 
- function showPage0(){
-  page0.visible=true;
-page1contol.visible=false;
-page2contol.visible=false;
-page3contol.visible=false;
-page4contol.visible=false;
-chordtypeGroupbox.visible=false;
-scaletypeGroupbox.visible=false;
-chordinvGroupbox.visible=false;
-pitchGroupbox.visible=false;
-durationGroupbox.visible=false;
-tkeys.visible=false;
-scaledir.visible=false;
-useOctshiftGB.visible=false;
- }//end showPage0
-///
-function showPage1(){
-  page0.visible=false;
-//  page2.visible=true;
-page1contol.visible=true;
-page2contol.visible=false;
-page3contol.visible=false;
-page4contol.visible=false;
-chordtypeGroupbox.visible=false;
-scaletypeGroupbox.visible=false;
-chordinvGroupbox.visible=false;
-pitchGroupbox.visible=true;
-durationGroupbox.visible=false;
-tkeys.visible=false;
-scaledir.visible=false;
-useOctshiftGB.visible=true;
- }//end showpage1
-/// 
- function showPage2(){
-  page0.visible=false;
-page1contol.visible=false;
-page2contol.visible=true;
-page3contol.visible=false;
-page4contol.visible=false;
-chordtypeGroupbox.visible=true;
-scaletypeGroupbox.visible=false;
-chordinvGroupbox.visible=true;
-pitchGroupbox.visible=true;
-durationGroupbox.visible=true;
-tkeys.visible=true;
-scaledir.visible=false;
-useOctshiftGB.visible=false;
- }//end showpage2
-/// 
- function showPage3(){
-  page0.visible=false;
-page1contol.visible=false;
-page2contol.visible=false;
-page3contol.visible=true;
-page4contol.visible=false;
-chordtypeGroupbox.visible=false;
-scaletypeGroupbox.visible=true;
-chordinvGroupbox.visible=false;
-pitchGroupbox.visible=true;
-durationGroupbox.visible=true;
-tkeys.visible=true;
-scaledir.visible=true;
-useOctshiftGB.visible=false;
-  }//end showpage3
- function showPage4(){
-  page0.visible=false;
-page1contol.visible=false;
-page2contol.visible=false;
-page3contol.visible=false;
-page4contol.visible=true;
-chordtypeGroupbox.visible=true;
-scaletypeGroupbox.visible=false;
-chordinvGroupbox.visible=true;
-pitchGroupbox.visible=true;
-durationGroupbox.visible=true;
-tkeys.visible=true;
-scaledir.visible=false;
-useOctshiftGB.visible=false;
-  }//end showpage4
 ////
  function kpaste(sss){
-  var tune1=page0.text.split(":");//tune1 is array of tracks
+  var tune1=ta0.text.split(":");//tune1 is array of tracks
   var tune=tune1[0].split(";");
   var tune2="" 
   var i;
@@ -1477,9 +1462,103 @@ useOctshiftGB.visible=false;
    nextNote();
   }//next i
  }//end kpaste
+ 
+ function showPage0(){
+  hideall();
+  ta0.visible=true;
+  ta0.height=350;//200;
+ }//end showPage0
+////
+ function showPage1(){
+  hideall();
+  page1contol.visible=true;
+  pitchGroupbox.visible=true;
+  useOctshiftGB.visible=true;
+ }//end showpage1
+//// 
+ function showPage2(){
+  hideall();
+  page2contol.visible=true;
+  chordtypeGroupbox.visible=true;
+  chordinvGroupbox.visible=true;
+  pitchGroupbox.visible=true;
+  durationGroupbox.visible=true;
+  tkeys.visible=true;
+ }//end showpage2
+////
+ function showPage3(){
+  hideall();
+  page3contol.visible=true;
+  scaletypeGroupbox.visible=true;
+  pitchGroupbox.visible=true;
+  durationGroupbox.visible=true;
+  tkeys.visible=true;
+  scaledir.visible=true;
+ }//end showpage3
+////
+ function showPage4(){
+  hideall();
+  page4contol.visible=true;
+  chordtypeGroupbox.visible=true;
+  chordinvGroupbox.visible=true;
+  pitchGroupbox.visible=true;
+  durationGroupbox.visible=true;
+  tkeys.visible=true;
+ }//end showpage4
+////
+ function showPage5(){
+  hideall();
+  ta0.visible=true;
+  ta0.height=200;
+  ta1.visible=true;
+  page5contol.visible=true;
+ }//end showPage5
+////
+ function hideall(){
+  ta0.visible=false;
+  ta1.visible=false;
+  page1contol.visible=false;
+  page2contol.visible=false;
+  page3contol.visible=false;
+  page4contol.visible=false;
+  chordtypeGroupbox.visible=false;
+  scaletypeGroupbox.visible=false;
+  chordinvGroupbox.visible=false;
+  pitchGroupbox.visible=false;
+  durationGroupbox.visible=false;
+  tkeys.visible=false;
+  scaledir.visible=false;
+  useOctshiftGB.visible=false;
+  page5contol.visible=false;
+ }//end hideall
+////
+function knittunes(){
+var atune0=ta0.text.split(":");
+var atune1=ta1.text.split(":");
+var btune0=atune0[0].split(";");
+var btune1=atune1[0].split(";");
+var i=1;
+var j=1;
+var rrr="";
+//console.log("knittunes");
+//console.log(btune0[0]);
+//console.log(btune1[0]);
+while(i<btune0.length-1){
+  rrr="-1,Staff,0,Voice,0;"+btune0[i]+";";
+// console.log(rrr);
+   pasteit(rrr,0);
+   nextNote();
+  rrr="-1,Staff,0,Voice,0;"+btune1[j]+";";
+// console.log(rrr);
+   pasteit(rrr,0);
+   nextNote();
+ i++;
+ j++;
+ if(j>btune1.length-1)return;
+
+}//end while
+
+}//end knittunes
+
+////
 }//end Musescore
-
-
-
-//useOctshiftGB.visible=false;
-//useOctaveShiftCB.checked

@@ -36,6 +36,10 @@
 9. Knit a rest, note or chord into a tune (scale example)
 ![KnitRestsNotesandChords.png](https://github.com/ClearMemory041063/Write-tune/blob/master/KnitRestsNotesandChords.png " ")
 
+10. Knit Tunes combine two tunes together alternating notes
+
+![KnitTunes.png](https://github.com/ClearMemory041063/Write-tune/blob/master/KnitTunes.png " ")
+
 
 ### Pay attention to the Syncronization field 
 
@@ -47,7 +51,7 @@ Best practice: Use mouse to mark a selection in th4e score, then click on the Sy
 ### Sonic Pi data
 
 The stegtest.rb file contains Sonic Pi code that creates a song using steganography. It has been altered to produce the strings to import the two staffs into MuseScore 2 using this plug in.
-The two strings were copied from Sonic Pi and pasted into the file stegtest.txt. This file wa opened with the plugin and pasted into an empty score and the score was then titled etc and saved, and exported into pdf and wav formats.
+The two strings were copied from Sonic Pi and pasted into the file stegtest.txt. This file was opened with the plugin and pasted into an empty score and the score was then titled etc and saved, and exported into pdf and wav formats.
 
 The playBeehoven.rb is a Sonic Pi program that takes the exported text format and plays the music using Sonic Pi. It uses the file atest.txt. The playbeethoven.rb code will need to be alterd to reflect the file path to the atest.txt file.
 
