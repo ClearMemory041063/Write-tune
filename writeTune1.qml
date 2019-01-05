@@ -115,7 +115,13 @@ ApplicationWindow{
      showPage5();
      findSegment(0,0); 
     }
-   }//tunes
+   }//end knit tunes
+   MenuItem { text: "Knit Rythmn..." 
+    onTriggered: {
+     showPage6();
+     findSegment(0,0); 
+    }
+   }//end knit rythmn
   }//end knit
  }//end Menu bar
 
@@ -1008,6 +1014,50 @@ knittunes();
    }//end row
   }//end page5control
 ////
+  GroupBox {
+   id:page6contol
+   visible:true
+   anchors.leftMargin: 10
+   anchors.topMargin: 10
+   Row{
+    Button{
+     id:kcopy0tButtona
+     anchors.leftMargin: 10
+     anchors.topMargin: 10
+     text: qsTranslate("PrefsDialogBase", "Copy 0") 
+     onClicked: {
+      if (typeof curScore === 'undefined')  return;
+      findSegment(0,0); //(voice,staff)
+      copyFromSelection(ta0);//.text);
+      findSegment(0,0); //(voice,staff)
+     }//end on clicked
+    }//end kcopy0tButtona
+    Button{
+     id:kcopy1tButtona
+     anchors.leftMargin: 10
+     anchors.topMargin: 10
+     text: qsTranslate("PrefsDialogBase", "Copy 1") 
+     onClicked: {
+      if (typeof curScore === 'undefined')  return;
+      findSegment(0,0); //(voice,staff)
+      copyFromSelection(ta1);//.text);
+      findSegment(0,0); //(voice,staff)
+     }//end on clicked
+    }//end kcopy1tButtona
+    Button{
+     id:krythmnButton
+     anchors.leftMargin: 10
+     anchors.topMargin: 10
+     text: qsTranslate("PrefsDialogBase", "Knit Rythmn") 
+     onClicked: {
+      knitrythmn();
+      findSegment(0,0); //(voice,staff)
+     }//end on clicked
+    }//end krythmnButton
+
+   }//end row
+  }//end page5control
+////
  GroupBox {
   id:exitHome
   anchors.leftMargin: 10
@@ -1514,6 +1564,14 @@ function nextNote(){
   page5contol.visible=true;
  }//end showPage5
 ////
+ function showPage6(){
+  hideall();
+  ta0.visible=true;
+  ta0.height=200;
+  ta1.visible=true;
+  page6contol.visible=true;
+ }//end showPage6
+////
  function hideall(){
   ta0.visible=false;
   ta1.visible=false;
@@ -1530,35 +1588,76 @@ function nextNote(){
   scaledir.visible=false;
   useOctshiftGB.visible=false;
   page5contol.visible=false;
+  page6contol.visible=false;
  }//end hideall
 ////
-function knittunes(){
-var atune0=ta0.text.split(":");
-var atune1=ta1.text.split(":");
-var btune0=atune0[0].split(";");
-var btune1=atune1[0].split(";");
-var i=1;
-var j=1;
-var rrr="";
-//console.log("knittunes");
-//console.log(btune0[0]);
-//console.log(btune1[0]);
-while(i<btune0.length-1){
-  rrr="-1,Staff,0,Voice,0;"+btune0[i]+";";
-// console.log(rrr);
+ function knittunes(){
+  var atune0=ta0.text.split(":");
+  var atune1=ta1.text.split(":");
+  var btune0=atune0[0].split(";");
+  var btune1=atune1[0].split(";");
+  var i=1;
+  var j=1;
+  var rrr="";
+  while(i<btune0.length-1){
+   rrr="-1,Staff,0,Voice,0;"+btune0[i]+";";
    pasteit(rrr,0);
    nextNote();
-  rrr="-1,Staff,0,Voice,0;"+btune1[j]+";";
-// console.log(rrr);
+   rrr="-1,Staff,0,Voice,0;"+btune1[j]+";";
    pasteit(rrr,0);
    nextNote();
- i++;
- j++;
- if(j>btune1.length-1)return;
-
-}//end while
-
-}//end knittunes
-
+   i++;
+   j++;
+   if(j>btune1.length-1)return;
+  }//end while
+ }//end knittunes
+////
+ function knitrythmn(){
+  if(ta0.text.length<1) return;
+  if(ta1.text.length<1) return;
+  var atune0=ta0.text.split(":");
+  var atune1=ta1.text.split(":");
+  var btune0=atune0[0].split(";");
+  var btune1=atune1[0].split(";");
+  var c0,c1;
+  var i,j,k;
+  var rrr="";
+  var nonote=1;
+// does btune1 contain at leasr 1 note or chord
+  for(i=1;i<btune1.length;i++){
+   c1=btune1[i].split(",");
+   if(c1[2]>-1)nonote=0;
+  }//next i
+  if(nonote){console.log("No notes in rythmn");return;}//endif
+//loop thru btune0  
+  j=1;
+  for(i=1;i<btune0.length;i++){
+   c0=btune0[i].split(",");
+   if(c0[2]>0){ //have note or chord in c0
+    c1=btune1[j].split(",");
+    while(c1[2]<0){ //a rest in c1
+     rrr="-1,Staff,0,Voice,0;"+btune1[j]+";";
+     console.log("rest ",rrr);   
+     pasteit(rrr,0);
+     nextNote();
+     j++;
+     if(j>btune1.length-2)j=1; //wrap around
+     c1=btune1[j].split(",");
+    }//end while rest
+    if(c1[2]>0){ //have note or chord in c1
+     rrr="-1,Staff,0,Voice,0;"+c1[0]+","+c1[1];
+     for(k=2;k<c0.length;k++) rrr=rrr+","+c0[k];
+     rrr+=";"
+     console.log("note ",rrr);
+     pasteit(rrr,0);
+     nextNote();
+    }//end rest in c 
+   j++;
+   if(j>btune1.length-2)j=1; //wrap around
+   }else{ //a rest in c0
+//leave it out of results
+   }//end else
+  }//next i
+}//end knitrythmn
 ////
 }//end Musescore

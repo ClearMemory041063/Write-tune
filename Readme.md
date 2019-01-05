@@ -34,11 +34,27 @@
 ![PasteReverse.png](https://github.com/ClearMemory041063/Write-tune/blob/master/PasteReverse.png " ")
 
 9. Knit a rest, note or chord into a tune (scale example)
+
 ![KnitRestsNotesandChords.png](https://github.com/ClearMemory041063/Write-tune/blob/master/KnitRestsNotesandChords.png " ")
 
 10. Knit Tunes combine two tunes together alternating notes
 
 ![KnitTunes.png](https://github.com/ClearMemory041063/Write-tune/blob/master/KnitTunes.png " ")
+
+11. Knit a Tune Using a Rythmn Pattern 
+
+Used on one staff at a time. Ignores rests in the tune but applies rests in the rythmn snippet.
+
+a. Open uo the Knit Rythm page
+b. Select the tune, press Sync and then Copy0
+c. Select the rythmn snippet, press Sync and then Copy1
+d. Select target measures (sufficient to hold the results), press Sync and then press Knit Rythmn.
+
+
+![KnitRythm1.png](https://github.com/ClearMemory041063/Write-tune/blob/master/KnitRythm1.png " ")
+
+![KnitRythmn2.png](https://github.com/ClearMemory041063/Write-tune/blob/master/KnitRythmn2.png " ")
+
 
 
 ### Pay attention to the Synchronization field 
