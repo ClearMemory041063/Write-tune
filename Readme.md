@@ -41,14 +41,14 @@
 
 ![KnitTunes.png](https://github.com/ClearMemory041063/Write-tune/blob/master/KnitTunes.png " ")
 
-11. Knit a Tune Using a Rythmn Pattern 
+11. Knit a Tune Using a Rhythm Pattern 
 
-Used on one staff at a time. Ignores rests in the tune but applies rests in the rythmn snippet.
+Used on one staff at a time. Ignores rests in the tune but applies rests in the rhythm snippet.
 
 a. Open uo the Knit Rythm page
 b. Select the tune, press Sync and then Copy0
-c. Select the rythmn snippet, press Sync and then Copy1
-d. Select target measures (sufficient to hold the results), press Sync and then press Knit Rythmn.
+c. Select the rhythm snippet, press Sync and then Copy1
+d. Select target measures (sufficient to hold the results), press Sync and then press Knit Rhythm.
 
 
 ![KnitRythm1.png](https://github.com/ClearMemory041063/Write-tune/blob/master/KnitRythm1.png " ")

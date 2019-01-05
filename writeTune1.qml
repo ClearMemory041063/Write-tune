@@ -116,12 +116,12 @@ ApplicationWindow{
      findSegment(0,0); 
     }
    }//end knit tunes
-   MenuItem { text: "Knit Rythmn..." 
+   MenuItem { text: "Knit Rhythm..." 
     onTriggered: {
      showPage6();
      findSegment(0,0); 
     }
-   }//end knit rythmn
+   }//end knit rhythm
   }//end knit
  }//end Menu bar
 
@@ -1045,15 +1045,15 @@ knittunes();
      }//end on clicked
     }//end kcopy1tButtona
     Button{
-     id:krythmnButton
+     id:krhythmButton
      anchors.leftMargin: 10
      anchors.topMargin: 10
-     text: qsTranslate("PrefsDialogBase", "Knit Rythmn") 
+     text: qsTranslate("PrefsDialogBase", "Knit Rhythm") 
      onClicked: {
-      knitrythmn();
+      knitrhythm();
       findSegment(0,0); //(voice,staff)
      }//end on clicked
-    }//end krythmnButton
+    }//end krhythmButton
 
    }//end row
   }//end page5control
@@ -1612,7 +1612,7 @@ function nextNote(){
   }//end while
  }//end knittunes
 ////
- function knitrythmn(){
+ function knitrhythm(){
   if(ta0.text.length<1) return;
   if(ta1.text.length<1) return;
   var atune0=ta0.text.split(":");
@@ -1628,7 +1628,7 @@ function nextNote(){
    c1=btune1[i].split(",");
    if(c1[2]>-1)nonote=0;
   }//next i
-  if(nonote){console.log("No notes in rythmn");return;}//endif
+  if(nonote){console.log("No notes in rhythm");return;}//endif
 //loop thru btune0  
   j=1;
   for(i=1;i<btune0.length;i++){
@@ -1658,6 +1658,6 @@ function nextNote(){
 //leave it out of results
    }//end else
   }//next i
-}//end knitrythmn
+}//end knitrhythm
 ////
 }//end Musescore
